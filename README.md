@@ -133,9 +133,9 @@ This program has its limitations, the NFL hasn't an open API to get precise data
 
 For that reason this program cannot do the following things:
 
--Show information about games played before the current NFL week.
--Show player stats, because they're not contained in the JSON file.
--Show the hour that the games are going to be played, because that data is not contained in the JSON file.
+- Show information about games played before the current NFL week.
+- Show player stats, because they're not contained in the JSON file.
+- Show the hour that the games are going to be played, because that data is not contained in the JSON file.
 
 ## What this program doesn't do but could do!
 

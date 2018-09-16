@@ -1,6 +1,6 @@
 {
     "name": "maxalmonte14/nfl-scores",
-    "description": "A CLI for get NFL games real-time data.",
+    "description": "A CLI for getting NFL games real-time data.",
     "keywords": ["terminal", "nfl", "sports", "cli"],
     "license": "MIT",
     "type": "project",
