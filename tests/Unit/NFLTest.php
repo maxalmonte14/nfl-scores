@@ -35,11 +35,17 @@ class NFLTest extends TestCase
     {
         $this->nflMock =  
             $this->getMockBuilder(NFL::class)
-                 ->setMethods(['getRemoteData'])
+                 ->setMethods(['getRemoteData', 'getFinishedGames'])
                  ->getMock();
 
         $this->nflMock->method('getRemoteData')
             ->willReturn(json_decode(file_get_contents(__DIR__ . '/scores.json'), true));
+
+        $this->nflMock->method('getFinishedGames')
+            ->willReturn(new GenericList(Game::class, [
+                new Game([]),
+                new Game([])
+            ]));
 
         $this->nflNoDataMock =  
             $this->getMockBuilder(NFL::class)
@@ -109,5 +115,28 @@ class NFLTest extends TestCase
         $liveGame = $this->nflNoDataMock->getLiveGameByTeam('IND');
 
         $this->assertNull($liveGame);
+    }
+
+    /** @test */
+    public function it_can_get_all_finished_games()
+    {
+        $finishedGames = $this->nflMock->getFinishedGames();
+
+        $this->assertCount(2, $finishedGames);
+        $this->assertInstanceOf(GenericList::class, $finishedGames);
+    }
+
+    /** @test */
+    public function it_cannot_get_the_finished_games_when_there_is_none()
+    {
+        $NFLMock = $this->createMock(NFL::class);
+
+        $NFLMock->expects($this->once())
+            ->method('getFinishedGames')
+            ->willReturn(null);
+
+        $finishedGames = $NFLMock->getFinishedGames();
+
+        $this->assertNull($finishedGames);
     }
 }

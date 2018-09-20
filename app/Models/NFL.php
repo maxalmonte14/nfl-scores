@@ -107,4 +107,34 @@ class NFL
             return $game->home['abbr'] === $team || $game->away['abbr'] === $team;
         });
     }
+
+    /**
+     * Return a collection with
+     * the finished games for today
+     * or null if there's not finished games.
+     * 
+     * @return \PHPCollections\Collections\GenericList|null
+     */
+    public function getFinishedGames(): ?GenericList
+    {
+        return $this->getTodayGames()->filter(function ($key, $game) {
+            return in_array($game->qtr, ['Final', 'final overtime']);
+        });
+    }
+
+    /**
+     * Return a collection with one
+     * specific game or null if there's
+     * no finished game by that team.
+     * 
+     * @param string $team
+     * 
+     * @return \PHPCollections\Collections\GenericList|null
+     */
+    public function getFinishedGameByTeam(string $team): ?GenericList
+    {
+        return $this->getFinishedGames()->filter(function ($key, $game) use ($team) {
+            return $game->home['abbr'] === $team || $game->away['abbr'] === $team;
+        });
+    }
 }
