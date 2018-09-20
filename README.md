@@ -50,7 +50,7 @@ You can see the teams that are playing, at which stadium, the current quarter, t
 
 ### Getting your favorite team live game
 
-You can get one specific live game just passing a parameter with your team abbreviation to the live command.
+You can get one specific live game just passing a parameter with your team abbreviation to the `live` command.
 
 ```
 php nfl-scores live CLE
@@ -71,7 +71,7 @@ CLE VS PIT @ FirstEnergy Stadium
 
 ### Getting a list of today's games
 
-If you want to see what teams are going to play today you can use the today command.
+If you want to see what teams are going to play today you can use the `today` command.
 
 ```
 php nfl-scores today
@@ -95,14 +95,59 @@ DEN VS SEA @ Broncos Stadium at Mile High
 GB VS CHI @ Lambeau Field
 ```
 
+### Getting today's finished games
+
+The `live` command won't show you the finished games, so, if want to know the final results of a game you should use the `finished` command.
+
+```
+php nfl-scores finished
+```
+
+The output will be like the following:
+
+```
+PHI VS ATL @ Lincoln Financial Field
++-----+---+---+---+---+----+----+
+|     | 1 | 2 | 3 | 4 | OT | T  |
++-----+---+---+---+---+----+----+
+| PHI | 0 | 3 | 7 | 8 | 0  | 18 |
+| ATL | 3 | 3 | 0 | 6 | 0  | 12 |
++-----+---+---+---+---+----+----+
+
+BAL VS BUF @ M&T Bank Stadium
++-----+----+----+----+---+----+----+
+|     | 1  | 2  | 3  | 4 | OT | T  |
++-----+----+----+----+---+----+----+
+| BAL | 14 | 12 | 14 | 8 | 0  | 47 |
+| BUF | 0  | 0  | 3  | 0 | 0  | 3  |
++-----+----+----+----+---+----+----+
+```
+
+You can also get one specific game passing a parameter to the command.
+
+```
+php nfl-scores finished PHI
+```
+
+The output will be like the following:
+
+```
+PHI VS ATL @ Lincoln Financial Field
++-----+---+---+---+---+----+----+
+|     | 1 | 2 | 3 | 4 | OT | T  |
++-----+---+---+---+---+----+----+
+| PHI | 0 | 3 | 7 | 8 | 0  | 18 |
+| ATL | 3 | 3 | 0 | 6 | 0  | 12 |
++-----+---+---+---+---+----+----+
+```
+
 ### Getting the games for this week
 
-The week command will show the games for the current week.
+The `week` command will show the games for the current week.
 
 ```
 php nfl-scores week
 ```
-______________________________________________________
 
 > **Note**: Remember a week in the NFL is composed by a Thursday, a Sunday and the Monday of next week.
 
