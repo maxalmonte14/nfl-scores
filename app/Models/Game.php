@@ -82,4 +82,15 @@ class Game
 
         return sprintf('%d%s & %d', $this->down, getOrdinalSuffix($this->down), $this->togo);
     }
+
+    /**
+     * Return whether the game is
+     * finished or not.
+     * 
+     * @return bool
+     */
+    public function isFinished(): bool
+    {
+        return in_array($this->qtr, ['Final', 'final overtime']);
+    }
 }
