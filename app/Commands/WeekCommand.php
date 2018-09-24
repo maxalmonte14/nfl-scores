@@ -2,11 +2,12 @@
 
 namespace App\Commands;
 
+use \ErrorException;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
-
 use App\Models\NFL;
-use GuzzleHttp\Exception\RequestException;
+use App\Utilities\Printer;
+use App\Http\NFLHttpClient;
 
 class WeekCommand extends Command
 {
@@ -31,19 +32,13 @@ class WeekCommand extends Command
      */
     public function handle(): void
     {
-        $nfl = new NFL();
+        $nfl = new NFL(new NFLHttpClient());
 
         try {
-            foreach ($nfl->getWeekGames() as $game) {
-                $this->line(sprintf(
-                    '%s VS %s @ %s %s',
-                    $game->home['abbr'],
-                    $game->away['abbr'],
-                    $game->stadium,
-                    $game->date->format('m/d/Y')
-                ));
-            }
-        } catch (RequestException $e) {
+            $printer = new Printer($this);
+            
+            $printer->renderGamesList($nfl->getWeekGames());
+        } catch (ErrorException $e) {
             exit($this->line('Sorry, there was a problem fetching the remote data.'));
         }
     }

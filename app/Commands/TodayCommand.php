@@ -2,11 +2,12 @@
 
 namespace App\Commands;
 
+use \ErrorException;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
-
 use App\Models\NFL;
-use GuzzleHttp\Exception\RequestException;
+use App\Http\NFLHttpClient;
+use App\Utilities\Printer;
 
 class TodayCommand extends Command
 {
@@ -31,19 +32,20 @@ class TodayCommand extends Command
      */
     public function handle(): void
     {
-        $nfl = new NFL();
+        $nfl = new NFL(new NFLHttpClient());
 
         try {
+            $data = [];
             $todayGames = $nfl->getTodayGames();
 
             if (is_null($todayGames)) {
-                exit($this->line('Sorry, there is games scheduled for today.'));
+                exit($this->line('Sorry, there is no games scheduled for today.'));
             }
 
-            foreach ($nfl->getTodayGames() as $game) {
-                $this->line(sprintf('%s VS %s @ %s', $game->home['abbr'], $game->away['abbr'], $game->stadium));
-            }
-        } catch (RequestException $e) {
+            $printer = new Printer($this);
+
+            $printer->renderGamesList($todayGames);
+        } catch (ErrorException $e) {
             exit($this->line('Sorry, there was a problem fetching the remote data.'));
         }
     }

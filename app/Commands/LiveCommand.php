@@ -2,12 +2,12 @@
 
 namespace App\Commands;
 
+use \ErrorException;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
-
 use App\Models\NFL;
 use App\Utilities\Printer;
-use GuzzleHttp\Exception\RequestException;
+use App\Http\NFLHttpClient;
 
 class LiveCommand extends Command
 {
@@ -32,17 +32,18 @@ class LiveCommand extends Command
      */
     public function handle(): void
     {
-        $nfl = new NFL();
+        $nfl = new NFL(new NFLHttpClient());
         
         try {
             $games = (!is_null($this->argument('team')))
                 ? $nfl->getLiveGameByTeam($this->argument('team'))
                 : $nfl->getLiveGames();
-        } catch (RequestException $e) {
+
+            $printer = new Printer($this);
+            
+            $printer->renderScoreBoard($games);
+        } catch (ErrorException $e) {
             exit($this->line('Sorry, there was a problem fetching the remote data.'));            
         }
-
-        $printer = new Printer($this);
-        $printer->render($games);
     }
 }
