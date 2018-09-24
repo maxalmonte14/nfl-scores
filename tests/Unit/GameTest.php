@@ -2,68 +2,74 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
+use Tests\TestCase;;
+use Tests\Fakes\FakeNFLHttpClient;
 use App\Models\Game;
+use App\Models\NFL;
 
 class GameTest extends TestCase
 {
-    private $startedGame;
-    private $nonStartedGame;
+    private $NFL;
 
     public function setUp() :void
     {
-        $this->startedGame = new Game([
-            'down' => 1,
-            'togo' => 10,
-            'clock' => '13:48',
-            'posteam' => 'BAL',
-            'stadium' => 'M&T Bank Stadium',
-            'qtr' => '3'
-        ]);
-
-        $this->nonStartedGame = new Game([
-            'down' => 0,
-            'togo' => 0,
-            'clock' => '15:00',
-            'posteam' => 'KC',
-            'stadium' => 'ROKiT Field at StubHub Center',
-            'qtr' => 'Pregame'
-        ]);
+        $this->NFL = new NFL(new FakeNFLHttpClient());
     }
 
     /** @test */
     public function it_can_get_the_possesion_team_of_a_started_game()
     {
-        $this->assertEquals('BAL', $this->startedGame->getPossesionTeam());
+        $game = $this->NFL->getLiveGameByTeam('NO')->first();
+        $this->assertEquals('NO', $game->getPossesionTeam());
     }
 
     /** @test */
     public function it_cannot_get_the_possesion_team_of_a_non_started_game()
     {
-        $this->assertNull($this->nonStartedGame->getPossesionTeam());
+        $gameMock = \Mockery::mock('App\Models\Game');
+        
+        $gameMock->allows()
+            ->getPossesionTeam()
+            ->andReturns(null);
+
+        $this->assertNull($gameMock->getPossesionTeam());
     }
 
     /** @test */
     public function it_can_get_the_current_quarter_of_a_started_game()
     {
-        $this->assertEquals('3rd quarter', $this->startedGame->getCurrentQuarter());
+        $game = $this->NFL->getLiveGameByTeam('NO')->first();
+        $this->assertEquals('Over Time', $game->getCurrentQuarter());
     }
 
     /** @test */
     public function it_cannot_get_the_current_quarter_of_a_non_started_game()
     {
-        $this->assertNull($this->nonStartedGame->getCurrentQuarter());
+        $gameMock = \Mockery::mock('App\Models\Game');
+        
+        $gameMock->allows()
+            ->getCurrentQuarter()
+            ->andReturns(null);
+
+        $this->assertNull($gameMock->getCurrentQuarter());
     }
 
     /** @test */
     public function it_can_get_the_current_down_of_a_started_game()
     {
-        $this->assertEquals('1st & 10', $this->startedGame->getCurrentDown());
+        $game = $this->NFL->getLiveGameByTeam('NO')->first();
+        $this->assertEquals('1st & 10', $game->getCurrentDown());
     }
 
     /** @test */
     public function it_cannot_get_the_current_down_of_a_non_started_game()
     {
-        $this->assertNull($this->nonStartedGame->getCurrentDown());
+        $gameMock = \Mockery::mock('App\Models\Game');
+        
+        $gameMock->allows()
+            ->getCurrentDown()
+            ->andReturns(null);
+
+        $this->assertNull($gameMock->getCurrentDown());
     }
 }
