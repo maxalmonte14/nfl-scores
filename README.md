@@ -27,7 +27,7 @@ That will show you something like this.
 
 ```
 BAL VS BUF @ M&T Bank Stadium
-3rd quarter | 13:48 | BAL 1st & 10
+3rd Quarter | 13:48 | BAL 1st & 10
 +-----+----+----+---+---+----+----+
 |     | 1  | 2  | 3 | 4 | OT | T  |
 +-----+----+----+---+---+----+----+
@@ -37,7 +37,7 @@ BAL VS BUF @ M&T Bank Stadium
 
 
 CLE VS PIT @ FirstEnergy Stadium
-3rd quarter | 08:24 | PIT 1st & 10
+3rd Quarter | 08:24 | PIT 1st & 10
 +-----+---+---+---+---+----+----+
 |     | 1 | 2 | 3 | 4 | OT | T  |
 +-----+---+---+---+---+----+----+
@@ -60,7 +60,7 @@ And now you have the Cleveland Browns game live on your terminal!
 
 ```
 CLE VS PIT @ FirstEnergy Stadium
-3rd quarter | 08:24 | PIT 1st & 10
+3rd Quarter | 08:24 | PIT 1st & 10
 +-----+---+---+---+---+----+----+
 |     | 1 | 2 | 3 | 4 | OT | T  |
 +-----+---+---+---+---+----+----+
@@ -80,19 +80,25 @@ php nfl-scores today
 That will show an output as the following.
 
 ```
-BAL VS BUF @ M&T Bank Stadium
-CLE VS PIT @ FirstEnergy Stadium
-IND VS CIN @ Lucas Oil Stadium
-MIA VS TEN @ Hard Rock Stadium
-MIN VS SF @ U.S. Bank Stadium
-NE VS HOU @ Gillette Stadium
-NO VS TB @ Mercedes-Benz Superdome
-NYG VS JAC @ MetLife Stadium
-LAC VS KC @ ROKiT Field at StubHub Center
-ARI VS WAS @ State Farm Stadium
-CAR VS DAL @ Bank of America Stadium
-DEN VS SEA @ Broncos Stadium at Mile High
-GB VS CHI @ Lambeau Field
++------+---------+-------------------------------+------------+-------------+
+| Home | Visitor | Stadium                       | Date       | Hour        |
++------+---------+-------------------------------+------------+-------------+
+| ATL  | NO      | Mercedes-Benz Stadium         | 09/23/2018 | 13:00:00 ET |
+| LA   | LAC     | Los Angeles Memorial Coliseum | 09/23/2018 | 16:05:00 ET |
+| ARI  | CHI     | State Farm Stadium            | 09/23/2018 | 16:25:00 ET |
+| SEA  | DAL     | CenturyLink Field             | 09/23/2018 | 16:25:00 ET |
+| DET  | NE      | Ford Field                    | 09/23/2018 | 20:20:00 ET |
+| BAL  | DEN     | M&T Bank Stadium              | 09/23/2018 | 13:00:00 ET |
+| CAR  | CIN     | Bank of America Stadium       | 09/23/2018 | 13:00:00 ET |
+| HOU  | NYG     | NRG Stadium                   | 09/23/2018 | 13:00:00 ET |
+| JAX  | TEN     | TIAA Bank Field               | 09/23/2018 | 13:00:00 ET |
+| KC   | SF      | Arrowhead Stadium             | 09/23/2018 | 13:00:00 ET |
+| MIA  | OAK     | Hard Rock Stadium             | 09/23/2018 | 13:00:00 ET |
+| MIN  | BUF     | U.S. Bank Stadium             | 09/23/2018 | 13:00:00 ET |
+| PHI  | IND     | Lincoln Financial Field       | 09/23/2018 | 13:00:00 ET |
+| WAS  | GB      | FedExField                    | 09/23/2018 | 13:00:00 ET |
++------+---------+-------------------------------+------------+-------------+
+
 ```
 
 ### Getting today's finished games
@@ -123,7 +129,7 @@ BAL VS BUF @ M&T Bank Stadium
 +-----+----+----+----+---+----+----+
 ```
 
-You can also get one specific game passing a parameter to the command.
+You can also get one specific game passing a parameter to the `finished` command.
 
 ```
 php nfl-scores finished PHI
@@ -149,27 +155,32 @@ The `week` command will show the games for the current week.
 php nfl-scores week
 ```
 
-> **Note**: Remember a week in the NFL is composed by a Thursday, a Sunday and the Monday of next week.
+> **Note**: Remember, a week in the NFL is composed by a Thursday, a Sunday and the Monday of next week.
 
 The output will be similar to the following.
 
 ```
-PHI VS ATL @ Lincoln Financial Field 09/06/2018
-BAL VS BUF @ M&T Bank Stadium 09/09/2018
-CLE VS PIT @ FirstEnergy Stadium 09/09/2018
-IND VS CIN @ Lucas Oil Stadium 09/09/2018
-MIA VS TEN @ Hard Rock Stadium 09/09/2018
-MIN VS SF @ U.S. Bank Stadium 09/09/2018
-NE VS HOU @ Gillette Stadium 09/09/2018
-NO VS TB @ Mercedes-Benz Superdome 09/09/2018
-NYG VS JAC @ MetLife Stadium 09/09/2018
-LAC VS KC @ ROKiT Field at StubHub Center 09/09/2018
-ARI VS WAS @ State Farm Stadium 09/09/2018
-CAR VS DAL @ Bank of America Stadium 09/09/2018
-DEN VS SEA @ Broncos Stadium at Mile High 09/09/2018
-GB VS CHI @ Lambeau Field 09/09/2018
-DET VS NYJ @ Ford Field 09/10/2018
-OAK VS LA @ Oakland Coliseum 09/10/2018
++------+---------+-------------------------------+------------+-------------+
+| Home | Visitor | Stadium                       | Date       | Hour        |
++------+---------+-------------------------------+------------+-------------+
+| ATL  | NO      | Mercedes-Benz Stadium         | 09/23/2018 | 13:00:00 ET |
+| LA   | LAC     | Los Angeles Memorial Coliseum | 09/23/2018 | 16:05:00 ET |
+| ARI  | CHI     | State Farm Stadium            | 09/23/2018 | 16:25:00 ET |
+| SEA  | DAL     | CenturyLink Field             | 09/23/2018 | 16:25:00 ET |
+| DET  | NE      | Ford Field                    | 09/23/2018 | 20:20:00 ET |
+| BAL  | DEN     | M&T Bank Stadium              | 09/23/2018 | 13:00:00 ET |
+| CAR  | CIN     | Bank of America Stadium       | 09/23/2018 | 13:00:00 ET |
+| HOU  | NYG     | NRG Stadium                   | 09/23/2018 | 13:00:00 ET |
+| JAX  | TEN     | TIAA Bank Field               | 09/23/2018 | 13:00:00 ET |
+| KC   | SF      | Arrowhead Stadium             | 09/23/2018 | 13:00:00 ET |
+| MIA  | OAK     | Hard Rock Stadium             | 09/23/2018 | 13:00:00 ET |
+| MIN  | BUF     | U.S. Bank Stadium             | 09/23/2018 | 13:00:00 ET |
+| PHI  | IND     | Lincoln Financial Field       | 09/23/2018 | 13:00:00 ET |
+| WAS  | GB      | FedExField                    | 09/23/2018 | 13:00:00 ET |
+| TB   | PIT     | Raymond James Stadium         | 09/24/2018 | 20:15:00 ET |
+| CLE  | NYJ     | FirstEnergy Stadium           | 09/20/2018 | 20:20:00 ET |
++------+---------+-------------------------------+------------+-------------+
+
 ```
 
 ## What this program cannot do
@@ -180,7 +191,6 @@ For that reason this program cannot do the following things:
 
 - Show information about games played before the current NFL week.
 - Show player stats, because they're not contained in the JSON file.
-- Show the hour that the games are going to be played, because that data is not contained in the JSON file.
 
 ## What this program doesn't do but could do!
 
@@ -196,10 +206,9 @@ There is a lot of things that can be done to improve this program, there are a f
 
 - Refactor! Everything turns better when you refactor it.
 - Add some Feature tests. Of course this program has a test suite, but I focused on the Unit tests, so adding some features test is a must-do task.
-- Separate the HTTP client and data model logic. Yeah, another must-do task.
 - Add caching. Why making a request when the response will be the same?
 - Speed up. Everybody loves fast things.
 
 ## Contributing
 
-Do you like this little app? Do you follow the PSR standards? It sounds good to me! Send me a PR.
+Do you like this little app? Do you follow the PSR standards? It sounds good to me! Send me a PR, and don't forget to add some tests.
