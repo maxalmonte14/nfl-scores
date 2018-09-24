@@ -1,5 +1,7 @@
 <?php
 
+define('PROJECT_ROOT', __DIR__);
+
 /**
  * Return the ordinal suffix for
  * a number from 1 to 5, if the
