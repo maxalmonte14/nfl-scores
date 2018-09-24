@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+/**
+ * Represents a NFL game.
+ */
 class Game
 {
     /**
@@ -18,7 +21,6 @@ class Game
      */
     public function __construct(array $data)
     {
-        unset($data['bp'], $data['note'], $data['redzone'], $data['media'], $data['yl']);
         $this->data = $data;
     }
 
@@ -42,6 +44,26 @@ class Game
     }
 
     /**
+     * Return the the current down,
+     * if the game hasn't started return null.
+     * 
+     * @return string|null
+     */
+    public function getCurrentDown(): ?string
+    {
+        if ($this->score['down'] === 0) {    
+            return null;
+        }
+
+        return sprintf(
+            '%d%s & %d',
+            $this->score['down'],
+            getOrdinalSuffix($this->score['down']),
+            $this->score['yardsToGo']
+        );
+    }
+
+    /**
      * Return the team with the current 
      * ball possesion, if the game hasn't
      * started return null.
@@ -50,7 +72,7 @@ class Game
      */
     public function getPossesionTeam(): ?string
     {
-        return in_array($this->qtr, [1, 2, 3, 4, 5]) ? $this->posteam : null;
+        return !$this->isFinished() ? $this->score['possessionTeamAbbr'] : null;
     }
 
     /**
@@ -61,26 +83,7 @@ class Game
      */
     public function getCurrentQuarter(): ?string
     {
-        if (!is_numeric($this->qtr)) {
-            return null;
-        }
-
-        return sprintf('%d%s quarter', $this->qtr, getOrdinalSuffix($this->qtr));
-    }
-
-    /**
-     * Return the the current down,
-     * if the game hasn't started return null.
-     * 
-     * @return string|null
-     */
-    public function getCurrentDown(): ?string
-    {
-        if ($this->down === 0) {
-            return null;
-        }
-
-        return sprintf('%d%s & %d', $this->down, getOrdinalSuffix($this->down), $this->togo);
+        return $this->score['phaseDescription'];
     }
 
     /**
@@ -91,6 +94,17 @@ class Game
      */
     public function isFinished(): bool
     {
-        return in_array($this->qtr, ['Final', 'final overtime']);
+        return in_array($this->score['phase'], ['FINAL', 'FINAL OVERTIME']);
+    }
+
+    /**
+     * Return whether the game is
+     * suspended or not.
+     * 
+     * @return bool
+     */
+    public function isSuspended(): bool
+    {
+        return $this->score['phase'] === 'SUSPENDED';
     }
 }
