@@ -4,7 +4,12 @@ namespace App\Utilities;
 
 use LaravelZero\Framework\Commands\Command;
 use PHPCollections\Collections\GenericList;
+use App\Models\Game;
 
+/**
+ * Utility class for printing
+ * elements into the console.
+ */
 class Printer
 {
     /**
@@ -25,57 +30,6 @@ class Printer
     }
 
     /**
-     * Build and print the terminal output.
-     * 
-     * @param \App\Models\Game $game
-     * 
-     * @return void
-     */
-    public function printScoreBoard($game): void
-    {
-        $this->command->line(sprintf('%s VS %s @ %s', $game->home['abbr'], $game->away['abbr'], $game->stadium));
-        
-        if (!$game->isFinished()) {
-            $this->command->line(sprintf(
-                '%s | %s | %s %s',
-                $game->getCurrentQuarter(),
-                $game->clock,
-                $game->getPossesionTeam(),
-                $game->getCurrentDown()
-            ));
-        }
-
-        $this->command->table(
-            ['','1','2','3','4','OT','T'],
-            [
-                $this->getTeamScore($game->home['abbr'], $game->home['score']),
-                $this->getTeamScore($game->away['abbr'], $game->away['score'])
-            ]
-        );
-
-        $this->command->line("\n");
-    }
-
-    /**
-     * Print a collection of games
-     * into the terminal.
-     * 
-     * @param PHPCollections\Collections\GenericList
-     * 
-     * @return void
-     */
-    public function render(?GenericList $games): void
-    {
-        if (is_null($games)) {
-            exit($this->command->line('Sorry, there is no games right now.'));
-        }
-
-        foreach ($games as $game) {
-            $this->printScoreBoard($game);
-        }
-    }
-
-    /**
      * Return an array with the name and
      * score of a specific team.
      * 
@@ -84,9 +38,111 @@ class Printer
      * 
      * @return array
      */
-    private function getTeamScore(string $abbr, array $score): array
+    private function buildScoreBoardRow(string $abbr, array $score): array
     {
-        array_unshift($score, $abbr);
-        return $score;
+        return [
+            $abbr,
+            $score['pointQ1'],
+            $score['pointQ2'],
+            $score['pointQ3'],
+            $score['pointQ4'],
+            $score['pointOT'],
+            $score['pointTotal']
+        ];
+    }
+
+    /**
+     * Build and print a game' scoreboard
+     * into the terminal.
+     * 
+     * @param \App\Models\Game $game
+     * 
+     * @return void
+     */
+    private function printScoreBoard(Game $game): void
+    {
+        $this->printScoreBoardHeader($game);
+
+        $this->command->table(
+            ['','1','2','3','4','OT','T'],
+            [
+                $this->buildScoreBoardRow($game->gameSchedule['homeTeamAbbr'], $game->score['homeTeamScore']),
+                $this->buildScoreBoardRow($game->gameSchedule['visitorTeamAbbr'], $game->score['visitorTeamScore'])
+            ]
+        );
+
+        $this->command->line("\n");
+    }
+
+    /**
+     * Build and print the scoreboard header.
+     * 
+     * @param \App\Models\Game $game
+     * 
+     * @return void
+     */
+    public function printScoreBoardHeader(Game $game)
+    {
+        $this->command->line(
+            sprintf(
+                '%s VS %s @ %s',
+                $game->gameSchedule['homeTeamAbbr'],
+                $game->gameSchedule['visitorTeamAbbr'],
+                $game->gameSchedule['site']['siteFullname']
+            )
+        );
+
+        if (!$game->isFinished()) {
+            $this->command->line(sprintf(
+                '%s | %s | %s %s',
+                $game->getCurrentQuarter(),
+                $game->score['time'],
+                $game->getPossesionTeam(),
+                $game->getCurrentDown()
+            ));
+        }
+    }
+
+    /**
+     * Print a table with a list of games.
+     * 
+     * @param \PHPCollections\Collections\GenericList $gameCollection
+     * 
+     * @return void
+     */
+    public function renderGamesList(?GenericList $gameCollection): void
+    {
+        $data = [];
+
+        foreach ($gameCollection as $game) {
+            array_push($data, [
+                $game->gameSchedule['homeTeamAbbr'],
+                $game->gameSchedule['visitorTeamAbbr'],
+                $game->gameSchedule['site']['siteFullname'],
+                $game->gameSchedule['gameDate'],
+                sprintf('%s ET', $game->gameSchedule['gameTimeEastern']),
+            ]);
+        }
+
+        $this->command->table(['Home','Visitor','Stadium','Date','Hour'], $data);
+    }
+
+    /**
+     * Print a collection of game'
+     * scoreboards into the terminal.
+     * 
+     * @param PHPCollections\Collections\GenericList
+     * 
+     * @return void
+     */
+    public function renderScoreBoard(?GenericList $games): void
+    {
+        if (is_null($games)) {
+            exit($this->command->line('Sorry, there is no games right now.'));
+        }
+
+        foreach ($games as $game) {
+            $this->printScoreBoard($game);
+        }
     }
 }
