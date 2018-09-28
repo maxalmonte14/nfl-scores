@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use DateTime;
+use DateTimeZone;
 use Tests\TestCase;
 use App\Models\NFL;
 use App\Models\Game;
@@ -14,15 +16,16 @@ class NFLTest extends TestCase
 
     public static function setUpBeforeClass()
     {
-        $data = json_decode(file_get_contents(__DIR__ . '/schedules.json'), true);
+        $data = json_decode(file_get_contents(__DIR__ . '/scores.json'), true);
+        $today = new DateTime('now', new DateTimeZone('US/Eastern'));
 
-        array_walk($data['gameScores'], function(&$value, $key) {
+        array_walk($data['gameScores'], function(&$value, $key) use ($today) {
             if ($key >= 1 && $key <= 13) {
-                $value['gameSchedule']['gameDate'] = date('m/d/Y');
+                $value['gameSchedule']['gameDate'] = $today->format('m/d/Y');
             }
         });
 
-        file_put_contents(__DIR__ . '/schedules.json', json_encode($data));
+        file_put_contents(__DIR__ . '/scores.json', json_encode($data));
     }
 
     public function setUp(): void
@@ -35,7 +38,7 @@ class NFLTest extends TestCase
     {
         $todayGames = $this->NFL->getTodayGames();
 
-        $this->assertCount(14, $todayGames);
+        $this->assertCount(13, $todayGames);
         $this->assertInstanceOf(GenericList::class, $todayGames);
     }
 
