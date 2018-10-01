@@ -29,7 +29,7 @@ class NFL
     private $today;
     
     /**
-     * Initialize values.
+     * Initializes class properties.
      */
     public function __construct(HttpClientInterface $httpClient)
     {
@@ -38,7 +38,7 @@ class NFL
     }
 
     /**
-     * Return a collection with
+     * Returns a collection with
      * the finished games for today
      * or null if there's not finished games.
      * 
@@ -52,7 +52,7 @@ class NFL
     }
 
     /**
-     * Return a collection with one
+     * Returns a collection with one
      * specific game or null if there's
      * no finished game by that team.
      * 
@@ -69,8 +69,8 @@ class NFL
     }
 
     /**
-     * Return a collection of the games
-     * that are currently being playing
+     * Returns a collection of the games
+     * that are currently being played
      * or null if there is no live games
      * at the moment. 
      * 
@@ -84,7 +84,7 @@ class NFL
     }
 
     /**
-     * Return a collection with one
+     * Returns a collection with one
      * specific game or null if there's
      * no game being played by that team.
      * 
@@ -101,9 +101,8 @@ class NFL
     }
 
     /**
-     * Return a collection of the games
-     * of today or null if there is no
-     * games for today.
+     * Returns a collection of today games
+     * or null if there is no games for today.
      * 
      * @return \PHPCollections\Collections\GenericList|null
      */
@@ -115,15 +114,15 @@ class NFL
     }
 
     /**
-     * Return a collection of the games
-     * of this week.
+     * Returns a collection of the games
+     * to be played this week.
      * 
      * @return \PHPCollections\Collections\GenericList
      */
     public function getWeekGames(): GenericList
     {
         $games = new GenericList(Game::class);
-        $data = $this->client->get($this->client::URL);
+        $data = $this->client->get($this->client::getUrl());
         $parsedData = JSONParser::parse($data);
 
         foreach ($parsedData['gameScores'] as $key => $gameData) {

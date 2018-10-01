@@ -10,8 +10,6 @@ use App\Interfaces\HttpClientInterface;
  */
 class NFLHttpClient implements HttpClientInterface
 {
-    const URL = 'https://feeds.nfl.com/feeds-rs/scores.json';
-
     /**
      * Gets and data from a remote source.
      *
@@ -23,5 +21,13 @@ class NFLHttpClient implements HttpClientInterface
     public function get(string $url): string
     {
         return file_get_contents($url);
+    }
+
+    /**
+     * Returns the url that this client will be using.
+     */
+    public static function getUrl(): string
+    {
+        return 'https://feeds.nfl.com/feeds-rs/scores.json'; 
     }
 }

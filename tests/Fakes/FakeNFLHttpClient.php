@@ -10,15 +10,18 @@ use App\Interfaces\HttpClientInterface;
 class FakeNFLHttpClient implements HttpClientInterface
 {
     /**
-     * The path to the local JSON file.
-     */
-    const URL =  PROJECT_ROOT . '/tests/Unit/scores.json';
-
-    /**
-     * Get data from a local JSON file.
+     * Gets data from a local JSON file.
      */
     public function get(string $url): string
     {
         return file_get_contents($url);
+    }
+
+    /**
+     * Returns the url that this client will be using.
+     */
+    public static function getUrl(): string
+    {
+        return base_path('/tests/Unit/scores.json'); 
     }
 }
