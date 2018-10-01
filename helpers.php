@@ -1,12 +1,10 @@
 <?php
 
-define('PROJECT_ROOT', __DIR__);
-
 /**
- * Return the ordinal suffix for
+ * Returns the ordinal suffix for
  * a number from 1 to 5, if the
  * param is greater than, or in
- * fact is not a number just return
+ * fact is not a number just returns
  * the param.
  * 
  * @return string
