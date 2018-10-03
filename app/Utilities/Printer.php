@@ -114,7 +114,7 @@ class Printer
     {
         $data = [];
 
-        foreach ($gameCollection as $game) {
+        $gameCollection->forEach(function ($game, $key) use (&$data) {
             array_push($data, [
                 $game->gameSchedule['homeTeamAbbr'],
                 $game->gameSchedule['visitorTeamAbbr'],
@@ -122,7 +122,7 @@ class Printer
                 $game->gameSchedule['gameDate'],
                 sprintf('%s ET', $game->gameSchedule['gameTimeEastern']),
             ]);
-        }
+        });
 
         $this->command->table(['Home','Visitor','Stadium','Date','Hour'], $data);
     }
@@ -141,8 +141,8 @@ class Printer
             exit($this->command->line('Sorry, there is no games right now.'));
         }
 
-        foreach ($games as $game) {
+        $games->forEach(function ($game, $key) {
             $this->printScoreBoard($game);
-        }
+        });
     }
 }
