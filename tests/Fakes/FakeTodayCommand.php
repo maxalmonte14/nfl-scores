@@ -2,7 +2,7 @@
 
 namespace Tests\Fakes;
 
-use App\Commands\TodayCommand;
+use NFLScores\Commands\TodayCommand;
 
 class FakeTodayCommand extends TodayCommand
 {

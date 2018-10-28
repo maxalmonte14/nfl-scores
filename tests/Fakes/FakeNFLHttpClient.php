@@ -2,7 +2,7 @@
 
 namespace Tests\Fakes;
 
-use App\Interfaces\HttpClientInterface;
+use NFLScores\Interfaces\HttpClientInterface;
 
 /**
  * Fake HTTP client for testing purposes.
@@ -22,6 +22,6 @@ class FakeNFLHttpClient implements HttpClientInterface
      */
     public static function getUrl(): string
     {
-        return base_path('/tests/Unit/scores.json'); 
+        return base_path('/tests/Unit/scores.json');
     }
 }

@@ -2,7 +2,7 @@
 
 namespace Tests\Fakes;
 
-use App\Commands\FinishedCommand;
+use NFLScores\Commands\FinishedCommand;
 
 class FakeFinishedCommand extends FinishedCommand
 {

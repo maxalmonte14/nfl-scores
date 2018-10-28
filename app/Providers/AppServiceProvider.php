@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Providers;
+namespace NFLScores\Providers;
 
 use Illuminate\Support\ServiceProvider;
 

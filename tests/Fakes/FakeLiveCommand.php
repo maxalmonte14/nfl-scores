@@ -2,7 +2,7 @@
 
 namespace Tests\Fakes;
 
-use App\Commands\LiveCommand;
+use NFLScores\Commands\LiveCommand;
 
 class FakeLiveCommand extends LiveCommand
 {

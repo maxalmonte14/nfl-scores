@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Http;
+namespace NFLScores\Http;
 
-use App\Interfaces\HttpClientInterface;
+use NFLScores\Interfaces\HttpClientInterface;
 
 /**
  * HTTP client for getting
@@ -15,7 +15,7 @@ class NFLHttpClient implements HttpClientInterface
      *
      * @param string $url
      * @throws \ErrorException
-     * 
+     *
      * @return string
      */
     public function get(string $url): string
@@ -28,6 +28,6 @@ class NFLHttpClient implements HttpClientInterface
      */
     public static function getUrl(): string
     {
-        return 'https://feeds.nfl.com/feeds-rs/scores.json'; 
+        return 'https://feeds.nfl.com/feeds-rs/scores.json';
     }
 }

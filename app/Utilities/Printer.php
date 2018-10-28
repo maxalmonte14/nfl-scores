@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Utilities;
+namespace NFLScores\Utilities;
 
 use LaravelZero\Framework\Commands\Command;
 use PHPCollections\Collections\GenericList;
-use App\Models\Game;
+use NFLScores\Models\Game;
 
 /**
  * Utility class for printing
@@ -21,7 +21,7 @@ class Printer
 
     /**
      * Initialize values.
-     * 
+     *
      * @param \LaravelZero\Framework\Commands\Command
      */
     public function __construct(Command $command)
@@ -32,10 +32,10 @@ class Printer
     /**
      * Return an array with the name and
      * score of a specific team.
-     * 
+     *
      * @param string $abbr
      * @param array $score
-     * 
+     *
      * @return array
      */
     private function buildScoreBoardRow(string $abbr, array $score): array
@@ -54,9 +54,9 @@ class Printer
     /**
      * Build and print a game' scoreboard
      * into the terminal.
-     * 
-     * @param \App\Models\Game $game
-     * 
+     *
+     * @param \NFLScores\Models\Game $game
+     *
      * @return void
      */
     private function printScoreBoard(Game $game): void
@@ -76,9 +76,9 @@ class Printer
 
     /**
      * Build and print the scoreboard header.
-     * 
-     * @param \App\Models\Game $game
-     * 
+     *
+     * @param \NFLScores\Models\Game $game
+     *
      * @return void
      */
     public function printScoreBoardHeader(Game $game)
@@ -105,9 +105,9 @@ class Printer
 
     /**
      * Print a table with a list of games.
-     * 
+     *
      * @param \PHPCollections\Collections\GenericList $gameCollection
-     * 
+     *
      * @return void
      */
     public function renderGamesList(?GenericList $gameCollection): void
@@ -130,9 +130,9 @@ class Printer
     /**
      * Print a collection of game'
      * scoreboards into the terminal.
-     * 
+     *
      * @param PHPCollections\Collections\GenericList
-     * 
+     *
      * @return void
      */
     public function renderScoreBoard(?GenericList $games): void

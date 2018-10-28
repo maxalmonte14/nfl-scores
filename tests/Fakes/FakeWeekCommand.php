@@ -2,7 +2,7 @@
 
 namespace Tests\Fakes;
 
-use App\Commands\WeekCommand;
+use NFLScores\Commands\WeekCommand;
 
 class FakeWeekCommand extends WeekCommand
 {

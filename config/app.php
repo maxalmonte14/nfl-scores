@@ -49,7 +49,7 @@ return [
     |
     */
     'providers' => [
-        App\Providers\AppServiceProvider::class,
+        NFLScores\Providers\AppServiceProvider::class,
     ],
 
 ];

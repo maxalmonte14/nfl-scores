@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Commands;
+namespace NFLScores\Commands;
 
-use \ErrorException;
+use NFLScores\Models\NFL;
+use ErrorException;
+use NFLScores\Utilities\Printer;
+use NFLScores\Http\NFLHttpClient;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
-use App\Models\NFL;
-use App\Utilities\Printer;
-use App\Http\NFLHttpClient;
 
 class WeekCommand extends Command
 {
@@ -36,7 +36,7 @@ class WeekCommand extends Command
 
         try {
             $printer = new Printer($this);
-            
+
             $printer->renderGamesList($nfl->getWeekGames());
         } catch (ErrorException $e) {
             exit($this->line('Sorry, there was a problem fetching the remote data.'));

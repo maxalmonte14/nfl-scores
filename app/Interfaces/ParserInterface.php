@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Interfaces;
+namespace NFLScores\Interfaces;
 
 interface ParserInterface
 {

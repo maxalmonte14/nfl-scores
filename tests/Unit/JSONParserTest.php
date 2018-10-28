@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\TestCase;
-use App\Utilities\JSONParser;
+use NFLScores\Utilities\JSONParser;
 
 class JSONParserTest extends TestCase
 {
@@ -12,7 +12,7 @@ class JSONParserTest extends TestCase
     {
         $JSONData = '{"firstname":"Max","lastname":"Almonte","occupation":"Software developer","age":"24"}';
         $parsedData = JSONParser::parse($JSONData);
-        
+
         $this->assertCount(4, $parsedData);
         $this->assertEquals('Max', $parsedData['firstname']);
     }
@@ -22,7 +22,7 @@ class JSONParserTest extends TestCase
     {
         $JSONData = '[{"movie":"Fight Club","rating":"9.8"},{"movie":"V for Vendetta","rating":"7.0"},{"movie":"He got game","rating":"8.5"}]';
         $parsedData = JSONParser::parse($JSONData);
-        
+
         $this->assertCount(3, $parsedData);
         $this->assertEquals('Fight Club', $parsedData[0]['movie']);
     }

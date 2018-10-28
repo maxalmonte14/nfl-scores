@@ -27,7 +27,7 @@
     "autoload": {
         "files": ["helpers.php"],
         "psr-4": {
-            "App\\": "app/"
+            "NFLScores\\": "app/"
         }
     },
     "autoload-dev": {

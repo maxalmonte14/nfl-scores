@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Commands;
+namespace NFLScores\Commands;
 
 use \ErrorException;
 use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
-use App\Models\NFL;
-use App\Http\NFLHttpClient;
-use App\Utilities\Printer;
+use NFLScores\Models\NFL;
+use NFLScores\Http\NFLHttpClient;
+use NFLScores\Utilities\Printer;
 
 class TodayCommand extends Command
 {
