@@ -5,10 +5,11 @@ namespace Tests\Unit;
 use DateTime;
 use DateTimeZone;
 use Tests\TestCase;
-use App\Models\NFL;
-use App\Models\Game;
+use NFLScores\Models\NFL;
+use NFLScores\Models\Game;
 use PHPCollections\Collections\GenericList;
 use Tests\Fakes\FakeNFLHttpClient;
+use Illuminate\Support\Facades\Cache;
 
 class NFLTest extends TestCase
 {
@@ -31,6 +32,8 @@ class NFLTest extends TestCase
     public function setUp(): void
     {
         $this->NFL = new NFL(new FakeNFLHttpClient());
+
+        parent::setUp();
     }
 
     /** @test */
@@ -45,15 +48,15 @@ class NFLTest extends TestCase
     /** @test */
     public function it_cannot_get_today_games_when_there_is_none()
     {
-        $NFLMock = \Mockery::mock('App\Models\NFL');
-        
+        $NFLMock = \Mockery::mock('NFLScores\Models\NFL');
+
         $NFLMock->allows()
             ->getTodayGames()
             ->andReturns(null);
 
         $this->assertNull($NFLMock->getTodayGames());
     }
-    
+
     /** @test */
     public function it_can_get_current_week_games()
     {
@@ -75,8 +78,8 @@ class NFLTest extends TestCase
     /** @test */
     public function it_cannot_get_live_games_when_there_is_no_games()
     {
-        $NFLMock = \Mockery::mock('App\Models\NFL');
-        
+        $NFLMock = \Mockery::mock('NFLScores\Models\NFL');
+
         $NFLMock->allows()
             ->getLiveGames()
             ->andReturns(null);
