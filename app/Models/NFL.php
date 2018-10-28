@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace NFLScores\Models;
 
-use \DateTime;
-use \DateTimeZone;
+use DateTime;
+use DateTimeZone;
 use PHPCollections\Collections\GenericList;
-use App\Utilities\JSONParser;
-use App\Interfaces\HttpClientInterface;
+use NFLScores\Utilities\JSONParser;
+use NFLScores\Interfaces\HttpClientInterface;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Manipulates NFL games related data.
@@ -16,7 +17,7 @@ class NFL
     /**
      * The HTTP client for fetching remote data.
      *
-     * @var \App\Interfaces\HttpClientInterface
+     * @var \NFLScores\Interfaces\HttpClientInterface
      */
     private $client;
 
@@ -27,7 +28,7 @@ class NFL
      * @var \DateTime
      */
     private $today;
-    
+
     /**
      * Initializes class properties.
      */
@@ -41,7 +42,7 @@ class NFL
      * Returns a collection with
      * the finished games for today
      * or null if there's not finished games.
-     * 
+     *
      * @return \PHPCollections\Collections\GenericList|null
      */
     public function getFinishedGames(): ?GenericList
@@ -55,9 +56,9 @@ class NFL
      * Returns a collection with one
      * specific game or null if there's
      * no finished game by that team.
-     * 
+     *
      * @param string $team
-     * 
+     *
      * @return \PHPCollections\Collections\GenericList|null
      */
     public function getFinishedGameByTeam(string $team): ?GenericList
@@ -72,8 +73,8 @@ class NFL
      * Returns a collection of the games
      * that are currently being played
      * or null if there is no live games
-     * at the moment. 
-     * 
+     * at the moment.
+     *
      * @return \PHPCollections\Collections\GenericList|null
      */
     public function getLiveGames(): ?GenericList
@@ -87,15 +88,15 @@ class NFL
      * Returns a collection with one
      * specific game or null if there's
      * no game being played by that team.
-     * 
+     *
      * @param string $team
-     * 
+     *
      * @return \PHPCollections\Collections\GenericList|null
      */
     public function getLiveGameByTeam(string $team): ?GenericList
     {
         return $this->getLiveGames()->filter(function ($key, $game) use ($team) {
-            return $game->gameSchedule['homeTeamAbbr'] === $team || 
+            return $game->gameSchedule['homeTeamAbbr'] === $team ||
                 $game->gameSchedule['visitorTeamAbbr'] === $team;
         });
     }
@@ -103,7 +104,7 @@ class NFL
     /**
      * Returns a collection of today games
      * or null if there is no games for today.
-     * 
+     *
      * @return \PHPCollections\Collections\GenericList|null
      */
     public function getTodayGames(): ?GenericList
@@ -116,11 +117,15 @@ class NFL
     /**
      * Returns a collection of the games
      * to be played this week.
-     * 
+     *
      * @return \PHPCollections\Collections\GenericList
      */
     public function getWeekGames(): GenericList
     {
+        if (Cache::has('games')) {
+            return Cache::get('games');
+        }
+
         $games = new GenericList(Game::class);
         $data = $this->client->get($this->client::getUrl());
         $parsedData = JSONParser::parse($data);
@@ -128,6 +133,8 @@ class NFL
         foreach ($parsedData['gameScores'] as $key => $gameData) {
             $games->add(new Game($gameData));
         }
+
+        Cache::put('games', $games, 1);
 
         return $games;
     }
