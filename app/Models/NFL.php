@@ -4,10 +4,10 @@ namespace NFLScores\Models;
 
 use DateTime;
 use DateTimeZone;
-use PHPCollections\Collections\GenericList;
-use NFLScores\Utilities\JSONParser;
-use NFLScores\Http\AbstractHttpClient;
 use Illuminate\Support\Facades\Cache;
+use NFLScores\Http\AbstractHttpClient;
+use NFLScores\Utilities\JSONParser;
+use PHPCollections\Collections\GenericList;
 
 /**
  * Manipulates NFL games related data.

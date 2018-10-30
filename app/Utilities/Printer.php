@@ -3,8 +3,8 @@
 namespace NFLScores\Utilities;
 
 use LaravelZero\Framework\Commands\Command;
-use PHPCollections\Collections\GenericList;
 use NFLScores\Models\Game;
+use PHPCollections\Collections\GenericList;
 
 /**
  * Utility class for printing
@@ -34,7 +34,7 @@ class Printer
      * score of a specific team.
      *
      * @param string $abbr
-     * @param array $score
+     * @param array  $score
      *
      * @return array
      */
@@ -64,10 +64,10 @@ class Printer
         $this->printScoreBoardHeader($game);
 
         $this->command->table(
-            ['','1','2','3','4','OT','T'],
+            ['', '1', '2', '3', '4', 'OT', 'T'],
             [
                 $this->buildScoreBoardRow($game->gameSchedule['homeTeamAbbr'], $game->score['homeTeamScore']),
-                $this->buildScoreBoardRow($game->gameSchedule['visitorTeamAbbr'], $game->score['visitorTeamScore'])
+                $this->buildScoreBoardRow($game->gameSchedule['visitorTeamAbbr'], $game->score['visitorTeamScore']),
             ]
         );
 
@@ -124,7 +124,7 @@ class Printer
             ]);
         });
 
-        $this->command->table(['Home','Visitor','Stadium','Date','Hour'], $data);
+        $this->command->table(['Home', 'Visitor', 'Stadium', 'Date', 'Hour'], $data);
     }
 
     /**

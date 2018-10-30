@@ -4,12 +4,10 @@ namespace Tests\Unit;
 
 use DateTime;
 use DateTimeZone;
-use Tests\TestCase;
 use NFLScores\Models\NFL;
-use NFLScores\Models\Game;
 use PHPCollections\Collections\GenericList;
 use Tests\Fakes\FakeNFLHttpClient;
-use Illuminate\Support\Facades\Cache;
+use Tests\TestCase;
 
 class NFLTest extends TestCase
 {
@@ -17,16 +15,16 @@ class NFLTest extends TestCase
 
     public static function setUpBeforeClass()
     {
-        $data = json_decode(file_get_contents(__DIR__ . '/scores.json'), true);
+        $data = json_decode(file_get_contents(__DIR__.'/scores.json'), true);
         $today = new DateTime('now', new DateTimeZone('US/Eastern'));
 
-        array_walk($data['gameScores'], function(&$value, $key) use ($today) {
+        array_walk($data['gameScores'], function (&$value, $key) use ($today) {
             if ($key >= 1 && $key <= 13) {
                 $value['gameSchedule']['gameDate'] = $today->format('m/d/Y');
             }
         });
 
-        file_put_contents(__DIR__ . '/scores.json', json_encode($data));
+        file_put_contents(__DIR__.'/scores.json', json_encode($data));
     }
 
     public function setUp(): void

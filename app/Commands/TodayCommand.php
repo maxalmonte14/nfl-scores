@@ -2,11 +2,10 @@
 
 namespace NFLScores\Commands;
 
-use \ErrorException;
-use Illuminate\Console\Scheduling\Schedule;
+use ErrorException;
 use LaravelZero\Framework\Commands\Command;
-use NFLScores\Models\NFL;
 use NFLScores\Http\NFLHttpClient;
+use NFLScores\Models\NFL;
 use NFLScores\Utilities\Printer;
 
 class TodayCommand extends Command

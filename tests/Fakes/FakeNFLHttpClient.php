@@ -14,7 +14,7 @@ class FakeNFLHttpClient extends AbstractHttpClient
      */
     public function __construct()
     {
-        $this->url = base_path('/tests/Unit/scores.json');;
+        $this->url = base_path('/tests/Unit/scores.json');
     }
 
     /**

@@ -6,7 +6,7 @@
  * param is greater than, or in
  * fact is not a number just returns
  * the param.
- * 
+ *
  * @return string
  */
 function getOrdinalSuffix($number) :string

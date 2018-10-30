@@ -2,12 +2,11 @@
 
 namespace NFLScores\Commands;
 
-use NFLScores\Models\NFL;
 use ErrorException;
-use NFLScores\Utilities\Printer;
-use NFLScores\Http\NFLHttpClient;
-use Illuminate\Console\Scheduling\Schedule;
 use LaravelZero\Framework\Commands\Command;
+use NFLScores\Http\NFLHttpClient;
+use NFLScores\Models\NFL;
+use NFLScores\Utilities\Printer;
 
 class WeekCommand extends Command
 {

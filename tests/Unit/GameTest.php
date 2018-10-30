@@ -2,11 +2,10 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;;
-use Tests\Fakes\FakeNFLHttpClient;
-use NFLScores\Models\Game;
-use NFLScores\Models\NFL;
 use NFLScores\Exceptions\NonExistingPropertyException;
+use NFLScores\Models\NFL;
+use Tests\Fakes\FakeNFLHttpClient;
+use Tests\TestCase;
 
 class GameTest extends TestCase
 {

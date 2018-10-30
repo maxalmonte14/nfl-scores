@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use NFLScores\Utilities\JSONParser;
+use Tests\TestCase;
 
 class JSONParserTest extends TestCase
 {
