@@ -2,6 +2,8 @@
 
 namespace Tests\Unit;
 
+use DateTime;
+use DateTimeZone;
 use NFLScores\Exceptions\NonExistingPropertyException;
 use NFLScores\Models\NFL;
 use Tests\Fakes\FakeNFLHttpClient;
@@ -13,7 +15,7 @@ class GameTest extends TestCase
 
     public function setUp() :void
     {
-        $this->NFL = new NFL(new FakeNFLHttpClient());
+        $this->NFL = new NFL(new FakeNFLHttpClient(), new DateTime('2018-10-30', new DateTimeZone('US/Eastern')));
 
         parent::setUp();
     }

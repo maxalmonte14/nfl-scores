@@ -13,25 +13,11 @@ class NFLTest extends TestCase
 {
     private $NFL;
 
-    public static function setUpBeforeClass()
-    {
-        $data = json_decode(file_get_contents(__DIR__.'/scores.json'), true);
-        $today = new DateTime('now', new DateTimeZone('US/Eastern'));
-
-        array_walk($data['gameScores'], function (&$value, $key) use ($today) {
-            if ($key >= 1 && $key <= 13) {
-                $value['gameSchedule']['gameDate'] = $today->format('m/d/Y');
-            }
-        });
-
-        file_put_contents(__DIR__.'/scores.json', json_encode($data));
-    }
-
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->NFL = new NFL(new FakeNFLHttpClient());
+        $this->NFL = new NFL(new FakeNFLHttpClient(), new DateTime('2018-10-30', new DateTimeZone('US/Eastern')));
     }
 
     /** @test */

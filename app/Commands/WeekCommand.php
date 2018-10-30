@@ -2,6 +2,8 @@
 
 namespace NFLScores\Commands;
 
+use DateTime;
+use DateTimeZone;
 use ErrorException;
 use LaravelZero\Framework\Commands\Command;
 use NFLScores\Http\NFLHttpClient;
@@ -31,7 +33,7 @@ class WeekCommand extends Command
      */
     public function handle(): void
     {
-        $nfl = new NFL(new NFLHttpClient());
+        $nfl = new NFL(new NFLHttpClient(), new DateTime('now', new DateTimeZone('US/Eastern')));
 
         try {
             $printer = new Printer($this);

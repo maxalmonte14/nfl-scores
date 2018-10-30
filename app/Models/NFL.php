@@ -31,11 +31,14 @@ class NFL
 
     /**
      * Creates a new NFL object.
+     *
+     * @param \NFLScores\Http\AbstractHttpClient $httpClient
+     * @param \DateTime $dateTime
      */
-    public function __construct(AbstractHttpClient $httpClient)
+    public function __construct(AbstractHttpClient $httpClient, DateTime $datetime)
     {
         $this->client = $httpClient;
-        $this->today = new DateTime('now', new DateTimeZone('US/Eastern'));
+        $this->today = $datetime;
     }
 
     /**
