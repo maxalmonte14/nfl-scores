@@ -47,7 +47,7 @@ class Printer
             $score['pointQ3'],
             $score['pointQ4'],
             $score['pointOT'],
-            $score['pointTotal']
+            $score['pointTotal'],
         ];
     }
 

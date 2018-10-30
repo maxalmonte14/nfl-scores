@@ -4,7 +4,6 @@ namespace NFLScores\Commands;
 
 use ErrorException;
 use LaravelZero\Framework\Commands\Command;
-use Illuminate\Console\Scheduling\Schedule;
 use NFLScores\Http\NFLHttpClient;
 use NFLScores\Models\NFL;
 use NFLScores\Utilities\Printer;
