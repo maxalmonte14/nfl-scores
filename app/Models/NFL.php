@@ -6,7 +6,7 @@ use DateTime;
 use DateTimeZone;
 use PHPCollections\Collections\GenericList;
 use NFLScores\Utilities\JSONParser;
-use NFLScores\Interfaces\HttpClientInterface;
+use NFLScores\Http\AbstractHttpClient;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -17,7 +17,7 @@ class NFL
     /**
      * The HTTP client for fetching remote data.
      *
-     * @var \NFLScores\Interfaces\HttpClientInterface
+     * @var \NFLScores\Http\AbstractHttpClient
      */
     private $client;
 
@@ -30,9 +30,9 @@ class NFL
     private $today;
 
     /**
-     * Initializes class properties.
+     * Creates a new NFL object.
      */
-    public function __construct(HttpClientInterface $httpClient)
+    public function __construct(AbstractHttpClient $httpClient)
     {
         $this->client = $httpClient;
         $this->today = new DateTime('now', new DateTimeZone('US/Eastern'));
@@ -127,7 +127,7 @@ class NFL
         }
 
         $games = new GenericList(Game::class);
-        $data = $this->client->get($this->client::getUrl());
+        $data = $this->client->get($this->client->getUrl());
         $parsedData = JSONParser::parse($data);
 
         foreach ($parsedData['gameScores'] as $key => $gameData) {

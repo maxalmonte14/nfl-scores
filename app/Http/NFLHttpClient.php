@@ -2,32 +2,28 @@
 
 namespace NFLScores\Http;
 
-use NFLScores\Interfaces\HttpClientInterface;
-
 /**
  * HTTP client for getting
  * NFL games data.
  */
-class NFLHttpClient implements HttpClientInterface
+class NFLHttpClient extends AbstractHttpClient
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected $url = 'https://feeds.nfl.com/feeds-rs/scores.json';
+
     /**
      * Gets and data from a remote source.
      *
      * @param string $url
+     *
      * @throws \ErrorException
      *
      * @return string
      */
-    public function get(string $url): string
+    public function get(): string
     {
-        return file_get_contents($url);
-    }
-
-    /**
-     * Returns the url that this client will be using.
-     */
-    public static function getUrl(): string
-    {
-        return 'https://feeds.nfl.com/feeds-rs/scores.json';
+        return file_get_contents($this->url);
     }
 }

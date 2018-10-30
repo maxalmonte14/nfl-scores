@@ -12,6 +12,6 @@ class NFLHttpClientTest extends TestCase
     {
         $NFLHttpClient = new FakeNFLHttpClient();
 
-        $this->assertJson($NFLHttpClient->get(FakeNFLHttpClient::getUrl()));
+        $this->assertJson($NFLHttpClient->get());
     }
 }

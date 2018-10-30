@@ -2,26 +2,26 @@
 
 namespace Tests\Fakes;
 
-use NFLScores\Interfaces\HttpClientInterface;
+use NFLScores\Http\AbstractHttpClient;
 
 /**
  * Fake HTTP client for testing purposes.
  */
-class FakeNFLHttpClient implements HttpClientInterface
+class FakeNFLHttpClient extends AbstractHttpClient
 {
     /**
-     * Gets data from a local JSON file.
+     * Creates a new FakeNFLHttpClient object.
      */
-    public function get(string $url): string
+    public function __construct()
     {
-        return file_get_contents($url);
+        $this->url = base_path('/tests/Unit/scores.json');;
     }
 
     /**
-     * Returns the url that this client will be using.
+     * Gets data from a local JSON file.
      */
-    public static function getUrl(): string
+    public function get(): string
     {
-        return base_path('/tests/Unit/scores.json');
+        return file_get_contents($this->url);
     }
 }
