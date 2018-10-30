@@ -3,7 +3,6 @@
 namespace NFLScores\Models;
 
 use DateTime;
-use DateTimeZone;
 use Illuminate\Support\Facades\Cache;
 use NFLScores\Http\AbstractHttpClient;
 use NFLScores\Utilities\JSONParser;
@@ -33,7 +32,7 @@ class NFL
      * Creates a new NFL object.
      *
      * @param \NFLScores\Http\AbstractHttpClient $httpClient
-     * @param \DateTime $dateTime
+     * @param \DateTime                          $dateTime
      */
     public function __construct(AbstractHttpClient $httpClient, DateTime $datetime)
     {
