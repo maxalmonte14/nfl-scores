@@ -1,6 +1,13 @@
 About NFL-Scores
 ====================
 
+[![Build Status](https://travis-ci.org/maxalmonte14/nfl-scores.svg?branch=master)](https://travis-ci.org/maxalmonte14/nfl-scores)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/maxalmonte14/nfl-scores/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/maxalmonte14/nfl-scores/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/maxalmonte14/nfl-scores/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/maxalmonte14/nfl-scores/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/maxalmonte14/nfl-scores/badges/build.png?b=master)](https://scrutinizer-ci.com/g/maxalmonte14/nfl-scores/build-status/master)
+[![StyleCI](https://github.styleci.io/repos/148950854/shield?branch=master)](https://github.styleci.io/repos/148950854)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+
 NFL-Scores is a CLI program that allows you to see the scores of live NFL games, as well as the list of games of the day and the current weekly schedule.
 
 ## Requirements
@@ -13,7 +20,7 @@ PHP >= 7.1.3
 
 ```
 composer require "maxalmonte14/nfl-scores"
-``` 
+```
 
 ## How to use
 
@@ -199,6 +206,7 @@ There is a lot of things that I would love to add in future versions of this pro
 - Show the output in a prettier way. Everybody loves nice things!
 - Update the data in real time. For the moment anytime you run the live command the program will show you the score at that time, you need to run the command over and over again every time you want to see the updated data.
 - Show notifications every time a team scores or the game is finished.
+- Store passed games in a Database.
 
 ## What this program can improve
 
