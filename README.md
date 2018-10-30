@@ -206,7 +206,6 @@ There is a lot of things that can be done to improve this program, there are a f
 
 - Refactor! Everything turns better when you refactor it.
 - Add some Feature tests. Of course this program has a test suite, but I focused on the Unit tests, so adding some features test is a must-do task.
-- Add caching. Why making a request when the response will be the same?
 - Speed up. Everybody loves fast things.
 
 ## Contributing
