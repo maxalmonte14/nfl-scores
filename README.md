@@ -206,7 +206,7 @@ There is a lot of things that I would love to add in future versions of this pro
 - Show the output in a prettier way. Everybody loves nice things!
 - Update the data in real time. For the moment anytime you run the live command the program will show you the score at that time, you need to run the command over and over again every time you want to see the updated data.
 - Show notifications every time a team scores or the game is finished.
-- Store passed games in a Database.
+- Store passed games in a database.
 
 ## What this program can improve
 
