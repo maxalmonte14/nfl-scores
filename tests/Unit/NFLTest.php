@@ -29,9 +29,9 @@ class NFLTest extends TestCase
 
     public function setUp(): void
     {
-        $this->NFL = new NFL(new FakeNFLHttpClient());
-
         parent::setUp();
+
+        $this->NFL = new NFL(new FakeNFLHttpClient());
     }
 
     /** @test */
