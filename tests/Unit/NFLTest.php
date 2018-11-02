@@ -55,7 +55,7 @@ class NFLTest extends TestCase
     {
         $liveGames = $this->NFL->getLiveGames();
 
-        $this->assertCount(5, $liveGames);
+        $this->assertCount(4, $liveGames);
         $this->assertInstanceOf(GenericList::class, $liveGames);
     }
 
@@ -74,10 +74,10 @@ class NFLTest extends TestCase
     /** @test */
     public function it_can_get_a_specific_team_live_game()
     {
-        $liveGame = $this->NFL->getLiveGameByTeam('ATL');
+        $liveGame = $this->NFL->getLiveGameByTeam('LA');
 
         $this->assertCount(1, $liveGame);
-        $this->assertEquals('ATL', $liveGame->first()->gameSchedule['homeTeam']['abbr']);
+        $this->assertEquals('LA', $liveGame->first()->gameSchedule['homeTeam']['abbr']);
         $this->assertInstanceOf(GenericList::class, $liveGame);
     }
 

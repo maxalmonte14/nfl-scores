@@ -23,8 +23,8 @@ class GameTest extends TestCase
     /** @test */
     public function it_can_get_the_possesion_team_of_a_started_game()
     {
-        $game = $this->NFL->getLiveGameByTeam('NO')->first();
-        $this->assertEquals('NO', $game->getPossesionTeam());
+        $game = $this->NFL->getLiveGameByTeam('LA')->first();
+        $this->assertEquals('LA', $game->getPossesionTeam());
     }
 
     /** @test */
@@ -42,8 +42,8 @@ class GameTest extends TestCase
     /** @test */
     public function it_can_get_the_current_quarter_of_a_started_game()
     {
-        $game = $this->NFL->getLiveGameByTeam('NO')->first();
-        $this->assertEquals('Over Time', $game->getCurrentQuarter());
+        $game = $this->NFL->getLiveGameByTeam('LA')->first();
+        $this->assertEquals('1st Quarter', $game->getCurrentQuarter());
     }
 
     /** @test */
@@ -61,7 +61,7 @@ class GameTest extends TestCase
     /** @test */
     public function it_can_get_the_current_down_of_a_started_game()
     {
-        $game = $this->NFL->getLiveGameByTeam('NO')->first();
+        $game = $this->NFL->getLiveGameByTeam('LA')->first();
         $this->assertEquals('1st & 10', $game->getCurrentDown());
     }
 
