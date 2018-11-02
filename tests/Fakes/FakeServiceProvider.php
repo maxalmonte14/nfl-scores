@@ -2,32 +2,22 @@
 
 namespace Tests\Fakes;
 
-use Illuminate\Support\ServiceProvider;
+use DateTime;
+use DateTimeZone;
+use NFLScores\Models\NFL;
+use NFLScores\Providers\AppServiceProvider;
 
-class FakeServiceProvider extends ServiceProvider
+class FakeServiceProvider extends AppServiceProvider
 {
-    /**
-     * Bootstrap any application services.
-     *
-     * @return void
-     */
-    public function boot()
-    {
-        //
-    }
-
     /**
      * Register any application services.
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        $this->commands([
-            \Tests\Fakes\FakeFinishedCommand::class,
-            \Tests\Fakes\FakeLiveCommand::class,
-            \Tests\Fakes\FakeTodayCommand::class,
-            \Tests\Fakes\FakeWeekCommand::class,
-        ]);
+        $this->app->bind(NFL::class, function ($app) {
+            return new NFL(new FakeNFLHttpClient(), new DateTime('2018-10-30', new DateTimeZone('US/Eastern')));
+        });
     }
 }
