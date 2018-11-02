@@ -15,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(NFL::class, function ($app) {
+        $this->app->bind(NFL::class, function () {
             return new NFL(new NFLHttpClient(), new DateTime('now', new DateTimeZone('US/Eastern')));
         });
     }

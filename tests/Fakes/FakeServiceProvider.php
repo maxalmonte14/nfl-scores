@@ -16,7 +16,7 @@ class FakeServiceProvider extends AppServiceProvider
      */
     public function register(): void
     {
-        $this->app->bind(NFL::class, function ($app) {
+        $this->app->bind(NFL::class, function () {
             return new NFL(new FakeNFLHttpClient(), new DateTime('2018-10-30', new DateTimeZone('US/Eastern')));
         });
     }
