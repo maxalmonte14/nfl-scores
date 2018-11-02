@@ -6,33 +6,80 @@ use Tests\TestCase;
 
 class LiveCommandTest extends TestCase
 {
-    public function setUp() :void
+    /** @test */
+    public function it_can_get_all_live_games()
     {
-        parent::setUp();
+        $this->artisan('live')
+            ->expectsOutput('ATL VS NO @ Mercedes-Benz Stadium')
+            ->expectsOutput('Over Time | 02:55 | NO 1st & 10')
+            ->expectsOutput('+-----+---+---+---+----+----+----+')
+            ->expectsOutput('|     | 1 | 2 | 3 | 4  | OT | T  |')
+            ->expectsOutput('+-----+---+---+---+----+----+----+')
+            ->expectsOutput('| ATL | 7 | 7 | 7 | 16 | 0  | 37 |')
+            ->expectsOutput('| NO  | 7 | 9 | 7 | 14 | 6  | 43 |')
+            ->expectsOutput('+-----+---+---+---+----+----+----+')
+            ->expectsOutput('LA VS LAC @ Los Angeles Memorial Coliseum')
+            ->expectsOutput('1st Quarter | 00:51 | LA 1st & 10')
+            ->expectsOutput('+-----+----+---+---+---+----+----+')
+            ->expectsOutput('|     | 1  | 2 | 3 | 4 | OT | T  |')
+            ->expectsOutput('+-----+----+---+---+---+----+----+')
+            ->expectsOutput('| LA  | 14 | 0 | 0 | 0 | 0  | 14 |')
+            ->expectsOutput('| LAC | 6  | 0 | 0 | 0 | 0  | 6  |')
+            ->expectsOutput('+-----+----+---+---+---+----+----+')
+            ->expectsOutput('ARI VS CHI @ State Farm Stadium')
+            ->expectsOutput('1st Quarter | 07:35 | CHI 1st & 10')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('|     | 1 | 2 | 3 | 4 | OT | T |')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('| ARI | 7 | 0 | 0 | 0 | 0  | 7 |')
+            ->expectsOutput('| CHI | 0 | 0 | 0 | 0 | 0  | 0 |')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('SEA VS DAL @ CenturyLink Field')
+            ->expectsOutput('1st Quarter | 06:48 | DAL 2nd & 3')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('|     | 1 | 2 | 3 | 4 | OT | T |')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('| SEA | 0 | 0 | 0 | 0 | 0  | 0 |')
+            ->expectsOutput('| DAL | 0 | 0 | 0 | 0 | 0  | 0 |')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('DET VS NE @ Ford Field')
+            ->expectsOutput('PREGAME | 15:00 | NE ')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('|     | 1 | 2 | 3 | 4 | OT | T |')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('| DET | 0 | 0 | 0 | 0 | 0  | 0 |')
+            ->expectsOutput('| NE  | 0 | 0 | 0 | 0 | 0  | 0 |')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->assertExitCode(0);
     }
 
     /** @test */
-    public function test_live_command_returns_two_games()
+    public function it_can_get_a_live_home_team_game()
     {
-        $this->artisan('fake:live')
-            ->expectsOutput('BAL VS BUF @ M&T Bank Stadium')
-            ->expectsOutput('3rd Quarter | 13:48 | BAL 1st & 10')
-            ->expectsOutput('+-----+----+----+---+---+----+----+')
-            ->expectsOutput('|     | 1  | 2  | 3 | 4 | OT | T  |')
-            ->expectsOutput('+-----+----+----+---+---+----+----+')
-            ->expectsOutput('| BAL | 14 | 12 | 0 | 0 | 0  | 26 |')
-            ->expectsOutput('| BUF | 0  | 0  | 0 | 0 | 0  | 0  |')
-            ->expectsOutput('+-----+----+----+---+---+----+----+')
-            ->expectsOutput('\n')
-            ->expectsOutput('\n')
-            ->expectsOutput('CLE VS PIT @ FirstEnergy Stadium')
-            ->expectsOutput('3rd Quarter | 08:24 | PIT 1st & 10')
-            ->expectsOutput('+-----+---+---+---+---+----+----+')
-            ->expectsOutput('|     | 1 | 2 | 3 | 4 | OT | T  |')
-            ->expectsOutput('+-----+---+---+---+---+----+----+')
-            ->expectsOutput('| CLE | 0 | 0 | 7 | 0 | 0  | 7  |')
-            ->expectsOutput('| PIT | 0 | 7 | 7 | 0 | 0  | 14 |')
-            ->expectsOutput('+-----+---+---+---+---+----+----+')
+        $this->artisan('live', ['team' => 'LA'])
+            ->expectsOutput('LA VS LAC @ Los Angeles Memorial Coliseum')
+            ->expectsOutput('1st Quarter | 00:51 | LA 1st & 10')
+            ->expectsOutput('+-----+----+---+---+---+----+----+')
+            ->expectsOutput('|     | 1  | 2 | 3 | 4 | OT | T  |')
+            ->expectsOutput('+-----+----+---+---+---+----+----+')
+            ->expectsOutput('| LA  | 14 | 0 | 0 | 0 | 0  | 14 |')
+            ->expectsOutput('| LAC | 6  | 0 | 0 | 0 | 0  | 6  |')
+            ->expectsOutput('+-----+----+---+---+---+----+----+')
+            ->assertExitCode(0);
+    }
+
+    /** @test */
+    public function it_can_get_a_live_away_team_game()
+    {
+        $this->artisan('live', ['team' => 'DAL'])
+            ->expectsOutput('SEA VS DAL @ CenturyLink Field')
+            ->expectsOutput('1st Quarter | 06:48 | DAL 2nd & 3')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('|     | 1 | 2 | 3 | 4 | OT | T |')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
+            ->expectsOutput('| SEA | 0 | 0 | 0 | 0 | 0  | 0 |')
+            ->expectsOutput('| DAL | 0 | 0 | 0 | 0 | 0  | 0 |')
+            ->expectsOutput('+-----+---+---+---+---+----+---+')
             ->assertExitCode(0);
     }
 }

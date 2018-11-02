@@ -15,9 +15,9 @@ class GameTest extends TestCase
 
     public function setUp() :void
     {
-        $this->NFL = new NFL(new FakeNFLHttpClient(), new DateTime('2018-10-30', new DateTimeZone('US/Eastern')));
-
         parent::setUp();
+
+        $this->NFL = new NFL(new FakeNFLHttpClient(), new DateTime('2018-10-30', new DateTimeZone('US/Eastern')));
     }
 
     /** @test */
