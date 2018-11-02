@@ -2,15 +2,12 @@
 
 namespace NFLScores\Commands;
 
-use DateTime;
-use DateTimeZone;
 use ErrorException;
-use LaravelZero\Framework\Commands\Command;
 use NFLScores\Http\NFLHttpClient;
 use NFLScores\Models\NFL;
 use NFLScores\Utilities\Printer;
 
-class WeekCommand extends Command
+class WeekCommand extends AbstractCommand
 {
     /**
      * The signature of the command.
@@ -33,12 +30,10 @@ class WeekCommand extends Command
      */
     public function handle(): void
     {
-        $nfl = new NFL(new NFLHttpClient(), new DateTime('now', new DateTimeZone('US/Eastern')));
-
         try {
             $printer = new Printer($this);
 
-            $printer->renderGamesList($nfl->getWeekGames());
+            $printer->renderGamesList($this->NFL->getWeekGames());
         } catch (ErrorException $e) {
             exit($this->line('Sorry, there was a problem fetching the remote data.'));
         }

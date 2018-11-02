@@ -2,15 +2,12 @@
 
 namespace NFLScores\Commands;
 
-use DateTime;
-use DateTimeZone;
 use ErrorException;
-use LaravelZero\Framework\Commands\Command;
 use NFLScores\Http\NFLHttpClient;
 use NFLScores\Models\NFL;
 use NFLScores\Utilities\Printer;
 
-class FinishedCommand extends Command
+class FinishedCommand extends AbstractCommand
 {
     /**
      * The signature of the command.
@@ -33,12 +30,10 @@ class FinishedCommand extends Command
      */
     public function handle(): void
     {
-        $nfl = new NFL(new NFLHttpClient(), new DateTime('now', new DateTimeZone('US/Eastern')));
-
         try {
             $games = (!is_null($this->argument('team')))
-                ? $nfl->getFinishedGameByTeam($this->argument('team'))
-                : $nfl->getFinishedGames();
+                ? $this->NFL->getFinishedGameByTeam($this->argument('team'))
+                : $this->NFL->getFinishedGames();
 
             $printer = new Printer($this);
             $printer->renderScoreBoard($games);

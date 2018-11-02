@@ -2,15 +2,12 @@
 
 namespace NFLScores\Commands;
 
-use DateTime;
-use DateTimeZone;
 use ErrorException;
-use LaravelZero\Framework\Commands\Command;
 use NFLScores\Http\NFLHttpClient;
 use NFLScores\Models\NFL;
 use NFLScores\Utilities\Printer;
 
-class TodayCommand extends Command
+class TodayCommand extends AbstractCommand
 {
     /**
      * The signature of the command.
@@ -33,11 +30,8 @@ class TodayCommand extends Command
      */
     public function handle(): void
     {
-        $nfl = new NFL(new NFLHttpClient(), new DateTime('now', new DateTimeZone('US/Eastern')));
-
         try {
-            $data = [];
-            $todayGames = $nfl->getTodayGames();
+            $todayGames = $this->NFL->getTodayGames();
 
             if (is_null($todayGames)) {
                 exit($this->line('Sorry, there is no games scheduled for today.'));
