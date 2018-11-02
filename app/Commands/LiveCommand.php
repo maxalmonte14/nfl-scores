@@ -3,8 +3,6 @@
 namespace NFLScores\Commands;
 
 use ErrorException;
-use NFLScores\Http\NFLHttpClient;
-use NFLScores\Models\NFL;
 use NFLScores\Utilities\Printer;
 
 class LiveCommand extends AbstractCommand
