@@ -129,7 +129,7 @@ class NFL
         }
 
         $games = new GenericList(Game::class);
-        $data = $this->client->get($this->client->getUrl());
+        $data = $this->client->get();
         $parsedData = JSONParser::parse($data);
 
         foreach ($parsedData['gameScores'] as $key => $gameData) {
