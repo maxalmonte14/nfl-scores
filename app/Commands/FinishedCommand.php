@@ -33,6 +33,10 @@ class FinishedCommand extends AbstractCommand
                 ? $this->NFL->getFinishedGameByTeam($this->argument('team'))
                 : $this->NFL->getFinishedGames();
 
+            if (is_null($games)) {
+                exit($this->line('Sorry, there is no finished games at this moment.'));
+            }
+
             $printer = new Printer($this);
             $printer->renderScoreBoard($games);
         } catch (ErrorException $e) {

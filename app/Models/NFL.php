@@ -49,7 +49,13 @@ class NFL
      */
     public function getFinishedGames(): ?GenericList
     {
-        return $this->getTodayGames()->filter(function ($key, $game) {
+        $todayGames = $this->getTodayGames();
+
+        if (is_null($todayGames)) {
+            return null;
+        }
+
+        return $todayGames->filter(function ($key, $game) {
             return in_array($game->score['phase'], ['FINAL', 'FINAL OVERTIME']);
         });
     }
@@ -65,7 +71,13 @@ class NFL
      */
     public function getFinishedGameByTeam(string $team): ?GenericList
     {
-        return $this->getFinishedGames()->filter(function ($key, $game) use ($team) {
+        $finishedGames = $this->getFinishedGames();
+
+        if (is_null($finishedGames)) {
+            return null;
+        }
+
+        return $finishedGames->filter(function ($key, $game) use ($team) {
             return $game->gameSchedule['homeTeamAbbr'] === $team ||
                 $game->gameSchedule['visitorTeamAbbr'] === $team;
         });
@@ -81,7 +93,13 @@ class NFL
      */
     public function getLiveGames(): ?GenericList
     {
-        return $this->getWeekGames()->filter(function ($key, $game) {
+        $todayGames = $this->getTodayGames();
+
+        if (is_null($todayGames)) {
+            return null;
+        }
+
+        return $todayGames->filter(function ($key, $game) {
             return !in_array($game->score['phase'], ['FINAL', 'SUSPENDED', 'FINAL OVERTIME', null]);
         });
     }
@@ -97,7 +115,13 @@ class NFL
      */
     public function getLiveGameByTeam(string $team): ?GenericList
     {
-        return $this->getLiveGames()->filter(function ($key, $game) use ($team) {
+        $livegames = $this->getLiveGames();
+
+        if (is_null($livegames)) {
+            return null;
+        }
+
+        return $livegames->filter(function ($key, $game) use ($team) {
             return $game->gameSchedule['homeTeamAbbr'] === $team ||
                 $game->gameSchedule['visitorTeamAbbr'] === $team;
         });

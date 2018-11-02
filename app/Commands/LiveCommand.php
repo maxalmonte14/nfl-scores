@@ -33,6 +33,10 @@ class LiveCommand extends AbstractCommand
                 ? $this->NFL->getLiveGameByTeam($this->argument('team'))
                 : $this->NFL->getLiveGames();
 
+            if (is_null($games)) {
+                exit($this->line('Sorry, there is no live games at this moment.'));
+            }
+
             $printer = new Printer($this);
 
             $printer->renderScoreBoard($games);
